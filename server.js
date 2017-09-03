@@ -1,19 +1,10 @@
 var express = require('express');
 var app = express();
+var bodyBarser = require('body-parser');
 var PORT = process.env.PORT || 3000;
-var todos = [{
-    id: 1,
-    description: 'Meet for lunch',
-    completed: false
-}, {
-    id: 2,
-    description: 'Go to market',
-    completed: false
-}, {
-    id: 3,
-    description: "feed the cat",
-    completed: true
-}];
+var todos = [];
+var todoNextId = 1;
+
 
 app.get('/', function(req, res) {
     res.send("ToDo Api root");
@@ -36,6 +27,10 @@ app.get('/todos/:id', function(req, res) {
     else {
         res.status(404).send();
     }
+});
+
+app.post('/todos', function(req, res) {
+
 });
 app.listen(PORT, function() {
     console.log('Express running on port ' + PORT);
