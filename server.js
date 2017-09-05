@@ -15,13 +15,8 @@ app.get('/todos', function(req, res) {
 });
 app.get('/todos/:id', function(req, res) {
     var todoId = parseInt(req.params.id, 10);
+    var matchedTodo = _.findWhere(todos, { id: todoId });
 
-    var matchedTodo;
-    todos.forEach(function(todo) {
-        if (todoId === todo.id) {
-            matchedTodo = todo;
-        }
-    });
     if (matchedTodo) {
         res.json(matchedTodo);
     }
@@ -32,6 +27,11 @@ app.get('/todos/:id', function(req, res) {
 
 app.post('/todos', function(req, res) {
     var body = req.body;
+
+    if (!_.isBool(body.completed) || _.isString(body.description))
+        body.id = todoNextId++;
+    todos.push(body);
+    res, json(body);
 
     console.log(descriptipon)
 
